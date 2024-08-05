@@ -20,11 +20,9 @@
     <body class="font-sans antialiased">
 
         <div class="min-h-screen bg-gray-100">
-        @include('layouts.sidebar')
+        {{-- @include('layouts.sidebar') --}}
         @include('layouts.appbar')
        
-
-            <!-- Page Content -->
             <div>
                    
                 @yield('content')    

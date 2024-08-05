@@ -21,8 +21,9 @@
              @if (!$task->complete)
                 <button type="button" wire:click="markAsRead({{ $task->id }})" class="btn btn-custon-four btn-primary">Mark as Read</button>
             @endif
-                <button type="button" wire:click="edit({{ $task->id }})" class="btn btn-custon-four btn-warning">Edit</button>
-                <button type="button" wire:click="delete({{$task->id}})"class="btn btn-custon-four btn-danger">Delete</button>
+                <button type="button" data-toggle="modal" data-target="#PrimaryModalhdbgcl" wire:click="edit({{ $task->id }})" class="btn btn-custon-four btn-warning">Edit</button>
+                <button type="button"  wire:click="delete({{$task->id}})"class="btn btn-custon-four btn-danger">Delete</button>
+                {{-- <a class="Primary mg-b-10" href="#" data-toggle="modal" data-target="#PrimaryModalalert">Add Task</a> --}}
 
             </td>
         </tr>
@@ -31,8 +32,16 @@
 </table>
 
 @if($editTaskId)
+@if (session()->has('error'))
+<div class="alert alert-danger">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    {{ session('error') }}
+@endif
 <div class="edit-form">
     <h3>Edit Task</h3>
+    </div>
     <form wire:submit.prevent="update">
         <input type="text" wire:model="editTaskName" class="form-control" />
         @error('editTaskName') <span class="error">{{ $message }}</span> @enderror
@@ -42,6 +51,7 @@
 </div>
 @endif
 </div>
+
 </div>
 
 

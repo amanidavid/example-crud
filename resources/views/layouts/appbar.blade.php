@@ -5,58 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Attendance Details</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0; /* Change background color of the body */
-        }
-        
-        .attendance-details {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            height: 100vh; /* Adjust the height as needed */
-            background-color: grey; /* Change background color of attendance section */
-            color:blue; /* Change text color in attendance section */
-        }
-        
-        h2 {
-            color:blue; /* Change color of headings */
-        }
-        
-        .header-top-area {
-            background-color:#007bff; /* Change background color of header */
-        }
-        
-        .header-top-area a {
-            margin-bottom: 100%
-            color: #ffffff; /* Change color of links in the header */
-        }
-        
-        .nav-link {
-            color: #ffffff; /* Change color of navigation links */
-        }
-        
-        .nav-link:hover {
-            color: #007bff; /* Change color of navigation links on hover */
-        }
-        
-        .dropdown-header-top {
-            background-color: #ffffff; /* Change background color of dropdowns */
-            color: blue; /* Change text color in dropdowns */
-        }
-        
-        .dropdown-header-top a {
-            color: #007bff; /* Change link color in dropdowns */
-        }
-        
-        .dropdown-header-top a:hover {
-            color: #0056b3; /* Change link color in dropdowns on hover */
-        }
-    </style>
+   
 </head>
 
 <body>
@@ -89,18 +38,7 @@
                                         <div class="header-top-menu tabl-d-n">
                                             <ul class="nav navbar-nav mai-top-nav">
                                                 <li class="nav-item"><a href="{{route('dashboard')}}" class="nav-link">Home</a></li>
-                                                <li class="nav-item"><a href="#" class="nav-link"></a></li>
-                                                <li class="nav-item"><a href="#" class="nav-link"></a></li>
-                                                <li class="nav-item dropdown res-dis-nn">
-                                                    <div role="menu" class="dropdown-menu animated zoomIn">
-                                                        <a href="#" class="dropdown-item"></a>
-                                                        <a href="#" class="dropdown-item"></a>
-                                                        <a href="#" class="dropdown-item"></a>
-                                                        <a href="#" class="dropdown-item"></a>
-                                                    </div>
-                                                </li>
-                                                <li class="nav-item"><a href="#" class="nav-link"></a></li>
-                                            </ul>
+                                             </ul>
                                         </div>
                                     </div>
                                     <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12">
@@ -112,8 +50,6 @@
                                                         <i class="fa fa-angle-down edu-icon edu-down-arrow"></i>
                                                     </a>
                                                     <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated zoomIn">
-                                                        <li><a href="#"><span class="edu-icon edu-home-admin author-log-ic"></span>My Account</a></li>
-                                                        <li><a href="#"><span class="edu-icon edu-user-rounded author-log-ic"></span>My Profile</a></li>
                                                         <li>
                                                             <form method="POST" action="{{ route('logout') }}">
                                                                 @csrf

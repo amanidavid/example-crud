@@ -12,6 +12,7 @@ class ShowTaskComponent extends Component
    
     public $editTaskId = null;  // Initialize with null
     public $editTaskName = '';
+    public $task_name;
 
     public function render()
     {
@@ -47,6 +48,7 @@ class ShowTaskComponent extends Component
             $this->editTaskId = $task->id;
             $this->editTaskName = $task->task_name;
         }
+
     }
 
     public function update()
@@ -54,8 +56,18 @@ class ShowTaskComponent extends Component
         $this->validate([
             'editTaskName' => 'required|string|max:255',
         ]);
-
+ // Check if the new task name already exists in the database, excluding the current task
+        $existTask = Task::where('task_name', $this->editTaskName)
+        ->where('id', '!=', $this->editTaskId)
+        ->first();
         $task = Task::find($this->editTaskId);
+
+
+        if($existTask){
+            
+            session()->flash('error', "A task $this->task_name already exists.");
+        }else{
+            
         if ($task) {
             $task->task_name = $this->editTaskName;
             $task->complete = false; 
@@ -67,6 +79,8 @@ class ShowTaskComponent extends Component
         }
 
         return redirect()->route('dashboard');
+        }
+
 
     }
 }
