@@ -75,7 +75,7 @@ class ShowTaskComponent extends Component
 
             // Reset the edit fields
             $this->editTaskId = null;
-            $this->editTaskName = '';
+            $this ->editTaskName = '';
         }
 
         return redirect()->route('dashboard');
