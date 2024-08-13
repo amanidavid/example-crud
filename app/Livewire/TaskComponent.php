@@ -13,8 +13,9 @@ class TaskComponent extends Component
     public $result;
 
     protected $rules = [
-        'task_name' =>'required|max:100'
+        'task_name' =>'string|required|max:100|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/'
     ];
+
 
     public function save(){
 
@@ -34,10 +35,11 @@ class TaskComponent extends Component
 
             
             if($result->save()){
-                return redirect()->route('dashboard');
+                session()->flash('message', "A task created successfully.");
             }
              // Optionally clear the input field after saving
             $this->task_name = '';
+
         }
         }
 

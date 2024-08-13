@@ -7,38 +7,59 @@ use Livewire\Component;
 use App\Models\Task;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Auth\Access\AuthorizationException;
+
 class ShowTaskComponent extends Component
 {
    
     public $editTaskId = null;  // Initialize with null
     public $editTaskName = '';
     public $task_name;
+    public $errorMessage;
+    public $task;
+  
+    public $result;
+    protected $rules = [
+        'task_name' =>'string|required|max:100|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/'
+    ];
+ 
 
     public function render()
     {
-        $task =Task::select('id','task_name','complete')
-        ->orderby('complete','asc')
-        ->get();
-        return view('livewire.show-task-component',compact('task'));
+        
+        return view('livewire.show-task-component',);
     }
 
-    
+    public function mount(){
+        $this->task =Task::select('id','task_name','complete')
+        ->orderby('complete','asc')
+        ->get();
 
+      
+    }
+    
     public function markAsRead($id)
     {
         $task = Task::find($id);
         if ($task) {
-            $task->complete = true;
-            $task->save();
+    
+                $task->complete = true;
+                $task->save();
+
+        $this->mount();
+
+          
         }
-        
-        return redirect()->route('dashboard');
     }
 
-    public function delete($id)
-    {
-         Task::find($id)->delete();
-         return redirect()->route('dashboard');
+    public function delete( Task $task)
+    {  
+    
+        $task->delete();
+        // return redirect()->route('dashboard'); 
+        $this->mount();
+
     }
 
     public function edit($id)
@@ -56,7 +77,7 @@ class ShowTaskComponent extends Component
         $this->validate([
             'editTaskName' => 'required|string|max:255',
         ]);
- // Check if the new task name already exists in the database, excluding the current task
+        // Check if the new task name already exists in the database, excluding the current task
         $existTask = Task::where('task_name', $this->editTaskName)
         ->where('id', '!=', $this->editTaskId)
         ->first();
@@ -65,7 +86,7 @@ class ShowTaskComponent extends Component
 
         if($existTask){
             
-            session()->flash('error', "A task $this->task_name already exists.");
+        session()->flash('error', "A task named '$this->editTaskName' already exists.");
         }else{
             
         if ($task) {
@@ -75,10 +96,10 @@ class ShowTaskComponent extends Component
 
             // Reset the edit fields
             $this->editTaskId = null;
-            $this ->editTaskName = '';
+            // $this ->editTaskName = '';
         }
 
-        return redirect()->route('dashboard');
+        // return redirect()->route('dashboard');
         }
 
 

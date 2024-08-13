@@ -1,5 +1,5 @@
 
-   
+
     <!-- favicon
 		============================================ -->
         <link rel="shortcut icon" type="image/x-icon" href="{{ asset('img/favicon.ico') }}">
@@ -58,4 +58,4 @@
         <link rel="stylesheet" href="{{asset('css/data-table/bootstrap-table.css')}}">
 
         
-    
+   

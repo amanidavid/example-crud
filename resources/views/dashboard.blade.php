@@ -2,6 +2,7 @@
 @section('content')
 @include('layouts.style')
 <div class="all-content-wrapper">
+
  
     <!-- Static Table Start -->
     <div class="data-table-area mg-b-15">
@@ -27,13 +28,34 @@
                                                 <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                                             </div>
                                             <div class="modal-body">
-                                                <livewire:task-component>
+                                                
+                                             @livewire('task-component')
                                             </div>
                                             
                                         </div>
                                     </div>
+                                </div> 
+                                <div >
+                                    <table  id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="false" data-show-pagination-switch="true" data-show-refresh="false" data-key-events="true" data-show-toggle="false" data-resizable="true" data-cookie="true"
+                                    data-cookie-id-table="saveId" data-show-export="false" data-click-to-select="false" data-toolbar="#toolbar">
+                                    <thead>
+                                        <tr >
+                                            {{-- <th data-field="state" data-checkbox="false"></th> --}}
+                                            <th data-field="id">No</th>
+                                            <th data-field="task_name">Task Name</th>
+                                            <th data-field="status">Status</th>
+                                            <th data-field="">Action</th>
+                                        </tr>
+                                    </thead>
+                                  
+                                     @livewire('show-task-component')
+
+                                </table>
+                                
+                               
                                 </div>
-                               <livewire:show-task-component>
+                                </div>
+                            </div>
                             </div>
                         </div>
                     </div>
@@ -54,5 +76,10 @@
         </div>
     </div>
 </div>
+
+
+
+
+
 
 @endsection
