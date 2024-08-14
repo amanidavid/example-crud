@@ -5,7 +5,10 @@
         <tr   wire:key ="{{ $task->id }}" >
             <td>{{$index + 1}}</td>
             <td>{{$task->task_name}}</td>
-            <td>{{ $task->complete ? 'Completed' : 'Pending' }}</td>
+            <td>{{ $task->description  }}</td>
+            <td>{{ $task->start_date  }}</td>
+            <td>{{ $task->due_date  }}</td>
+            <td>{{ $task->status  }}</td>
             <td>   
              @if (!$task->complete)
                 <button type="button" wire:click="markAsRead({{ $task->id }})" class="btn btn-custon-four btn-primary">Mark as Read</button>

@@ -3,8 +3,9 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-
-use App\Models\Task;
+use App\Models\Work;
+use App\Models\User;
+use App\Models\task_user;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +19,8 @@ class ShowTaskComponent extends Component
     public $task_name;
     public $errorMessage;
     public $task;
+    
+    public  $description,$start_date,$due_date,$assignees;
   
     public $result;
     protected $rules = [
@@ -32,9 +35,14 @@ class ShowTaskComponent extends Component
     }
 
     public function mount(){
-        $this->task =Task::select('id','task_name','complete')
-        ->orderby('complete','asc')
+        $this->task = task_user::join('works','task_users.works_id','works.id')
+        ->join('users AS assignee','task_users.user_id','assignee.id')
+        
+        ->select('works.task_name','works.description','works.start_date','works.due_date','works.status','Assignee.name AS assignee')
+        // $this->task =Task::all()
+        // ->orderby('complete','asc')
         ->get();
+
 
       
     }

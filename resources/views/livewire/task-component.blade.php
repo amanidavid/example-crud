@@ -74,7 +74,7 @@
                 <label class="login2 pull-right pull-right-pro">Assigned To</label>
             </div>
             <div class="col-lg-9 col-md-9 col-sm-9 col-xs-12">
-                <select class="select2_demo_2 form-control" name="assignees[]" id="assignees" wire:model="assignees" multiple="multiple" required style="width: 100%;">
+                <select class="select2_demo_2 form-control" name="assignees[]" id="assignees" wire:model="assignees" multiple="multiple"  style="width: 100%;" required>
                     @forelse($output as $user)
                         <option value="{{ $user->id }}">{{ $user->name }}</option>
                     @empty

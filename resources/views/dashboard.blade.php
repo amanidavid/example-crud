@@ -44,7 +44,10 @@
                                         <tr >
                                             {{-- <th data-field="state" data-checkbox="false"></th> --}}
                                             <th data-field="id">No</th>
-                                            <th data-field="task_name">Task Name</th>
+                                            <th data-field="task_name">Task</th>
+                                            <th data-field="description">Description</th>
+                                            <th data-field="start_date">Start Date</th>
+                                            <th data-field="due_date">Due Date</th>
                                             <th data-field="status">Status</th>
                                             <th data-field="">Action</th>
                                         </tr>
