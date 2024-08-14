@@ -12,7 +12,7 @@
                     <div class="sparkline13-list">
                         <div class="sparkline13-hd">
                             <div class="main-sparkline13-hd">
-                                <h1>Projects <span class="table-project-n">Data</span> Table</h1>
+                                <h1>Tasks <span class="table-project-n"></span> </h1>
                             </div>
                         </div>
                         <div class="sparkline13-graph">
@@ -28,6 +28,8 @@
                                                 <a class="close" data-dismiss="modal" href="#"><i class="fa fa-close"></i></a>
                                             </div>
                                             <div class="modal-body">
+                                            <h4>Task Info</h4>
+                                            <hr>
                                                 
                                              @livewire('task-component')
                                             </div>

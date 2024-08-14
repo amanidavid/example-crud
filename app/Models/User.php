@@ -58,4 +58,14 @@ class User extends Authenticatable
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function assignedTasks()
+    {
+        return $this->belongsToMany(Work::class, 'task_users', 'user_id', 'works_id');
+    }
+
+    public function createdTasks()
+    {
+        return $this->hasMany(Work::class, 'created_by');
+    }
 }

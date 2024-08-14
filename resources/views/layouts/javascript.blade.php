@@ -81,3 +81,18 @@
 		============================================ -->
     <script src="js/metisMenu/metisMenu.min.js"></script>
     <script src="js/metisMenu/metisMenu-active.js"></script>
+
+    <!-- select2 JS -->
+<script src="js/select2/select2.full.min.js"></script>
+<script src="js/select2/select2-active.js"></script>
+    <!-- Initialize Select2 -->
+    <script>
+        $(document).ready(function() {
+            $('.select2_demo_2').select2({
+                placeholder: "Select options",
+                allowClear: true
+            });
+        });
+    </script>
+
+

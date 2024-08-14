@@ -56,6 +56,14 @@
             ============================================ -->
         <script src="{{ asset('js/vendor/modernizr-2.8.3.min.js') }}"></script>
         <link rel="stylesheet" href="{{asset('css/data-table/bootstrap-table.css')}}">
+        <!-- select2 CSS -->
+
+        <link rel="stylesheet" href="css/select2/select2.min.css">
+        <!-- Include jQuery (required for Select2) -->
+        <script src="js/vendor/jquery-1.12.4.min.js"></script>
+        <!-- Include Select2 JS -->
+        <script src="js/select2/select2.full.min.js"></script>
+
 
         
    
