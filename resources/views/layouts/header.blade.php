@@ -63,6 +63,50 @@
         <script src="js/vendor/jquery-1.12.4.min.js"></script>
         <!-- Include Select2 JS -->
         <script src="js/select2/select2.full.min.js"></script>
+        <link rel="stylesheet" href="css/owl.carousel.css">
+        <link rel="stylesheet" href="css/owl.theme.css">
+        <link rel="stylesheet" href="css/owl.transitions.css">
+        <!-- animate CSS
+            ============================================ -->
+        <link rel="stylesheet" href="css/animate.css">
+        <!-- normalize CSS
+            ============================================ -->
+        <link rel="stylesheet" href="css/normalize.css">
+        <!-- meanmenu icon CSS
+            ============================================ -->
+        <link rel="stylesheet" href="css/meanmenu.min.css">
+        <!-- main CSS
+            ============================================ -->
+        <link rel="stylesheet" href="css/main.css">
+        <!-- forms CSS
+            ============================================ -->
+        <link rel="stylesheet" href="css/form/all-type-forms.css">
+        <!-- educate icon CSS
+            ============================================ -->
+        <link rel="stylesheet" href="css/educate-custon-icon.css">
+        <!-- morrisjs CSS
+            ============================================ -->
+        <link rel="stylesheet" href="css/morrisjs/morris.css">
+        <!-- dropzone CSS
+            ============================================ -->
+        <link rel="stylesheet" href="css/dropzone/dropzone.css">
+        <!-- mCustomScrollbar CSS
+            ============================================ -->
+        <link rel="stylesheet" href="css/scrollbar/jquery.mCustomScrollbar.min.css">
+        <!-- metisMenu CSS
+            ============================================ -->
+        <link rel="stylesheet" href="css/metisMenu/metisMenu.min.css">
+        <link rel="stylesheet" href="css/metisMenu/metisMenu-vertical.css">
+        <!-- calendar CSS
+            ============================================ -->
+        <link rel="stylesheet" href="css/calendar/fullcalendar.min.css">
+        <link rel="stylesheet" href="css/calendar/fullcalendar.print.min.css">
+        <!-- style CSS
+            ============================================ -->
+        <link rel="stylesheet" href="style.css">
+        <!-- responsive CSS
+            ============================================ -->
+        <link rel="stylesheet" href="css/responsive.css">
 
 
         

@@ -37,10 +37,7 @@ class ShowTaskComponent extends Component
     public function mount(){
         $this->task = task_user::join('works','task_users.works_id','works.id')
         ->join('users AS assignee','task_users.user_id','assignee.id')
-        
         ->select('works.task_name','works.description','works.start_date','works.due_date','works.status','Assignee.name AS assignee')
-        // $this->task =Task::all()
-        // ->orderby('complete','asc')
         ->get();
 
 

@@ -24,8 +24,8 @@
     <body class="font-sans antialiased">
 
         <div class="min-h-screen bg-gray-100">
-        @include('layouts.sidebar')
-        @include('layouts.appbar')
+            @include('layouts.sidebar')
+            @include('layouts.appbar')
        
             <div>
                    

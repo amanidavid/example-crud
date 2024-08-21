@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Task;
+
+use App\Http\Livewire\MyTaskComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,10 +25,22 @@ Route::middleware([
     'verified',
 ])->group(function () {
     Route::get('/dashboard', function () {
-      
-
         return view('dashboard');
     })->name('dashboard');
 
+    Route::get('task', function () {
+        return view('task');
+    })->name('my-task');
+
+    Route::get('supervisor', function () {
+        return view('supervisor');
+    })->name('create-by-me');
+
+
 });
+
+Route::get('supervisor', function () {
+    return view('supervisor');
+})->name('create-by-me');
+
 

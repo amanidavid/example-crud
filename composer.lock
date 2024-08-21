@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "42e515586ae4642a1a421c503510a335",
+    "content-hash": "46eab101ce3d0c92138e17ae3d684fd8",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -609,6 +609,76 @@
                 }
             ],
             "time": "2023-10-06T06:47:41+00:00"
+        },
+        {
+            "name": "emanate/beem",
+            "version": "v0.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/wao1ook/beem.git",
+                "reference": "71574c6058ecac0988431539dad020686f34be57"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/wao1ook/beem/zipball/71574c6058ecac0988431539dad020686f34be57",
+                "reference": "71574c6058ecac0988431539dad020686f34be57",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "guzzlehttp/guzzle": "^7.0",
+                "illuminate/support": "^8.0|^9.0|^10.0",
+                "php": "^8.0"
+            },
+            "require-dev": {
+                "laravel/pint": "^1.2",
+                "nunomaduro/collision": "^6.1|^7.0",
+                "nunomaduro/larastan": "^2.0.1",
+                "orchestra/testbench": "^7.0",
+                "phpunit/phpunit": "^9.5|^10.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Emanate\\BeemSms\\BeemSmsServiceProvider"
+                    ],
+                    "aliases": {
+                        "BeemSms": "Emanate\\BeemSms\\Facades\\BeemSms"
+                    }
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Emanate\\BeemSms\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Emanate Software",
+                    "email": "hello@emanate.software",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Refactoring way of sending SMS",
+            "homepage": "https://github.com/wao1ook/beem",
+            "keywords": [
+                "beem-sms",
+                "emanate",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/wao1ook/beem/issues",
+                "source": "https://github.com/wao1ook/beem/tree/v0.6"
+            },
+            "time": "2024-02-27T08:27:57+00:00"
         },
         {
             "name": "fruitcake/php-cors",

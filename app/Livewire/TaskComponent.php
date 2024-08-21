@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Auth;
 class TaskComponent extends Component
 {
     public $task_name, $description,$start_date,$due_date,$assignees;
-    public $result;
+    public $result,$task;
 
    public  $output = [];
 
@@ -51,6 +51,7 @@ class TaskComponent extends Component
         }
 
         session()->flash('message', "Task created and users assigned successfully.");
+        
 
         // Optionally clear the input fields after saving
         $this->task_name ='';
@@ -59,10 +60,21 @@ class TaskComponent extends Component
         $this->due_date ='';
         $this->assignees ='';
 
+        $this->redirect('/dashboard');
+
         }
 
     public function mount(){
-        $this->output=User::all();
+        
+        $userId =auth()->id();
+         // assign task to only worker supervising
+         $this->output=DB::table('task_delegations')
+         ->join('users As supervisor','task_delegations.supervisor','supervisor.id')
+         ->join('users As user_supervised','task_delegations.user_supervised','user_supervised.id')
+         ->where('supervisor.id', $userId)
+         ->select('user_supervised.id','user_supervised.name')
+         ->get();
+   
     }
     
 

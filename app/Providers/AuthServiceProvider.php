@@ -4,7 +4,9 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 use App\Models\Task;
+use App\Models\Work;
 use App\Policies\TaskPolicy;
+use App\Policies\WorkPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -18,6 +20,7 @@ class AuthServiceProvider extends ServiceProvider
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
 
         Task::class => TaskPolicy::class,
+        // Work::class => WorkPolicy::class,
     ];
 
     /**
