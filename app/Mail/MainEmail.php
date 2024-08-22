@@ -13,30 +13,27 @@ use Illuminate\Queue\SerializesModels;
 class MainEmail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $task;
+    public $task,$assignerName;
 
     /**
      * Create a new message instance.
      */
-    public function __construct( Work $task)
+    public function __construct(  $task,$assignerName)
     {
         //
         $this->task =$task;
+        $this->assignerName =$assignerName;
     }
 
     /**
      * Get the message envelope.
      */
 
-    //  public function build(){
-       
-    //     return $this->subject('New Task Assigned')
-    //                 ->view('emails.notification'); 
-    //  }
+   
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'MainStream',
+            subject: 'MainStreamMedia',
             // from: new Address('test@gmail.dev',' Test Mail')
         );
     }
@@ -47,7 +44,14 @@ class MainEmail extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email.notification',
+            view: 'emails.notification',
+            with: [
+                'taskName' => $this->task->task_name,
+                'description' => $this->task->description,
+                'startDate' => $this->task->start_date,
+                'dueDate' => $this->task->due_date,
+                'assignerName' => $this->assignerName,
+            ],
         );
     }
 

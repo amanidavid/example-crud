@@ -9,7 +9,7 @@
                 <ul class="metismenu" id="menu1">
                    
                     <li>
-                        <a title="Landing Page" href="" aria-expanded="false"><span class="educate-icon educate-event icon-wrap sub-icon-mg" aria-hidden="true"></span> <span class="mini-click-non"></span></a>
+                        <a title="Landing Page" href="" aria-expanded="false"><span class="" aria-hidden="true"></span> <span class="mini-click-non"></span></a>
                     </li>
                     <li>
                         <a title="Generate Report" href="" aria-expanded="false"><span class=""></span> <span class="mini-click-non"></span></a>

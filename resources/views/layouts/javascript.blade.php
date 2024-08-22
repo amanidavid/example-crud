@@ -73,27 +73,16 @@
     <script src="js/data-table/colResizable-1.5.source.js"></script>
     <script src="js/data-table/bootstrap-table-export.js"></script>
 
-    <script src="js/tab.js"></script>
+   
 
     <script src="js/scrollbar/jquery.mCustomScrollbar.concat.min.js"></script>
     <script src="js/scrollbar/mCustomScrollbar-active.js"></script>
-    <!-- metisMenu JS
-		============================================ -->
-    <script src="js/metisMenu/metisMenu.min.js"></script>
-    <script src="js/metisMenu/metisMenu-active.js"></script>
 
     <!-- select2 JS -->
 <script src="js/select2/select2.full.min.js"></script>
 <script src="js/select2/select2-active.js"></script>
     <!-- Initialize Select2 -->
-    <script>
-        $(document).ready(function() {
-            $('.select2_demo_2').select2({
-                placeholder: "Select options",
-                allowClear: true
-            });
-        });
-    </script>
-     
+  
 
 
+    
