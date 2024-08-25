@@ -33,7 +33,7 @@ class MainEmail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'MainStreamMedia',
+            subject: 'MainStream Media',
             // from: new Address('test@gmail.dev',' Test Mail')
         );
     }

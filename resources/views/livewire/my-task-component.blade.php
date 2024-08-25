@@ -1,23 +1,19 @@
 
-{{-- <tbody>
-@foreach ($result as $index => $task)
-<tr    >
-    <td>{{$index + 1}}</td>
-    <td>{{$task->task_name}}</td>
-    <td>{{ $task->description  }}</td>
-    <td>{{ $task->start_date  }}</td>
-    <td>{{ $task->due_date  }}</td>
-    <td>
-        <select wire:change="updateStatus({{ $task->id }}, $event.target.value)">
-            @foreach ($statuses as $status)
-                <option value="{{ $status }}" {{ $task->status == $status ? 'selected' : '' }}>
-                    {{ ucfirst($status) }}
-                </option>
-            @endforeach
-        </select>
-    </td>
-    <td>{{ $task->assigner  }}</td>
-   
-</tr>
-@endforeach
-</tbody> --}}
+
+
+<form class="row g-3" wire:submit="import">
+    <div class="mb-3">
+        <label for="formFile" class="form-label">import excel file</label>
+        <input class="form-control" type="file" id="formFile" wire:model="file">
+        @error('file') <span class="text-danger">{{ $message }}</span> @enderror
+    </div>
+    <button type="submit" class="btn btn-success">Import</button>
+  </form>
+
+  @if (session()->has('message'))
+<div class="alert alert-success">{{ session('message') }}</div>
+@endif
+
+@if (session()->has('error'))
+<div class="alert alert-success">{{ session('error') }}</div>
+@endif

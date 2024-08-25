@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Livewire\MyTaskComponent;
+use App\Livewire\MyTaskComponent;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,11 +36,13 @@ Route::middleware([
         return view('supervisor');
     })->name('create-by-me');
 
+    
+    // Route::get('livewire/my-task-component', MyTaskComponent::class);
+    Route::get('import-excel', MyTaskComponent::class)->name('import-excel');
+
 
 });
 
-Route::get('supervisor', function () {
-    return view('supervisor');
-})->name('create-by-me');
+
 
 

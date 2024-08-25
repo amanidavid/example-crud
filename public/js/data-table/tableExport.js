@@ -322,7 +322,7 @@
 
         try {
           blob = new Blob([sdata], {type: "application/json;charset=utf-8"});
-          saveAs(blob, defaults.fileName + '.json');
+          saveAs(blob, defaults.fileName + '.');
         }
         catch (e) {
           downloadFile(defaults.fileName + '.json',

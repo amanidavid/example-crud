@@ -1,8 +1,9 @@
 <div class="left-sidebar-pro">
     <nav id="sidebar" class="">
         <div class="sidebar-header">
-            <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /></a>
-            <strong><a href="index.html"><img src="img/logo/logosn.png" alt="" /></a></strong>
+            <a href="index.html"><img class="main-logo" src="img/logo/logo.png" alt="" /> </a>
+
+            {{-- <strong><a href="index.html"><img src="img/logo/logosn.png" alt="" /></a></strong> --}}
         </div>
         <div class="left-custom-menu-adp-wrap comment-scrollbar">
             <nav class="sidebar-nav left-sidebar-menu-pro">
@@ -13,7 +14,7 @@
                                <span class="mini-click-non">Education</span>
                             </a>
                         <ul class="submenu-angle" aria-expanded="true">
-                            <li><a title="Dashboard v.1" href="index.html"><span class="mini-sub-pro">Dashboard v.1</span></a></li>
+                            <li><a title="Import Excel file" href="{{ route('import-excel') }} wire:navigate><span class="mini-sub-pro">Import Excel file</span></a></li>
                             <li><a title="Dashboard v.2" href="index-1.html"><span class="mini-sub-pro">Dashboard v.2</span></a></li>
                             <li><a title="Dashboard v.3" href="index-2.html"><span class="mini-sub-pro">Dashboard v.3</span></a></li>
                             <li><a title="Analytics" href="analytics.html"><span class="mini-sub-pro">Analytics</span></a></li>
@@ -145,4 +146,3 @@
         </div>
     </nav>
 </div>
-<!-- End

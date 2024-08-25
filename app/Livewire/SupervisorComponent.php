@@ -21,56 +21,42 @@ class SupervisorComponent extends Component
     }
 
     public function mount(){
+        $this->supervisorTask();
+    }
+
+    public function supervisorTask(){
 
         $userId =auth()->id();
-         // Task create by supervisor
-         $this->mytask=DB::table('task_users')
-         // ->join('works','task_users.works_id','works.id')
-         ->join('works', 'task_users.works_id', '=', 'works.id')
-         ->join('users AS assignee', 'task_users.user_id', '=', 'assignee.id')
-         ->join('users AS supervisor','works.created_by','supervisor.id')
-         ->where('supervisor.id',$userId)
-         ->select('works.id','works.task_name','works.description','works.start_date','works.due_date','works.status','assignee.name AS assignee')
-         ->get();
-    }
-
-    public function delete( $id)
-    {
+        // Task create by supervisor
+        $this->mytask=DB::table('task_users')
+        // ->join('works','task_users.works_id','works.id')
+        ->join('works', 'task_users.works_id', '=', 'works.id')
+        ->join('users AS assignee', 'task_users.user_id', '=', 'assignee.id')
+        ->join('users AS supervisor','works.created_by','supervisor.id')
+        ->where('supervisor.id',$userId)
+        ->select('works.id','works.task_name','works.description','works.start_date','works.due_date','works.status','assignee.name AS assignee')
+        ->orderByRaw("CASE 
+        WHEN works.status = 'incomplete' THEN 1
+        WHEN works.status = 'doing' THEN 2
+        WHEN works.status = 'complete' THEN 3
+        ELSE 4
+        END")
+        ->orderBy('works.due_date','asc') 
+        ->get(); 
         
-        $task = Work::find($id);
- 
-        $task->delete();
-        $this->mount();
-
-
-        // // Ensure the user is authorized to delete the task
-        // $userId = auth()->id();
+        // $this->mount();
     
-        // // Find the task that matches the user's criteria
-        // $this->task = DB::table('task_users')
-        //     ->join('works', 'task_users.works_id', '=', 'works.id')
-        //     ->join('users AS supervisor', 'works.created_by', '=', 'supervisor.id')
-        //     ->where('supervisor.id', $userId)
-        //     ->where('works.id', $taskId)
-        //     ->first();
-    
-        // if ($this->task) {
-        //     // Perform the delete operation
-        //     DB::table('works')
-        //         ->where('id', $taskId)
-        //         ->delete();
-    
-        //     // Optionally, you can also delete the associated entries in 'task_users'
-        //     DB::table('task_users')
-        //         ->where('works_id', $taskId)
-        //         ->delete();
-    
-        //     // Update the Livewire component's property
-        //     $this->mount(); // Re-fetch the tasks to reflect the changes
-        // } else {
-        //     // Handle the case where the task is not found or user is not authorized        
-        //     $this->redirect('/dashboard');
-
-        // }
+        
     }
+
+    // public function delete($id){
+
+    //     // $this->remove= Work::find($id);
+    //     $remove = Work::find($id);
+    //     $remove->delete();
+
+    //    session()->flash('sms', "Task deleted successfully.");
+    //    $this->supervisorTask();
+   
+    // }
 }

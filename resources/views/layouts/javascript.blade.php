@@ -82,6 +82,13 @@
 <script src="js/select2/select2.full.min.js"></script>
 <script src="js/select2/select2-active.js"></script>
     <!-- Initialize Select2 -->
+{{--  
+<script src="js/chosen/chosen.jquery.js"></script>
+<script src="js/chosen/chosen-active.js"></script>    --}}
+
+
+<script src="js/metisMenu/metisMenu.min.js"></script>
+<script src="js/metisMenu/metisMenu-active.js"></script>
   
 
 

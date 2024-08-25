@@ -3,18 +3,23 @@
 namespace App\Livewire;
 
 use Livewire\Component;
-use App\Models\Work;
-use App\Models\User;
-use App\Models\task_user;
+
+use Livewire\WithFileUploads;
+use Livewire\Attributes\Validate;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ExcelImport;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class MyTaskComponent extends Component
 
 {
-    // public $result, $user;
-    // public $statuses;
-    // public $task_name, $description,$start_date,$due_date,$assigner,$assignee;
+    use WithFileUploads;
+    public $file, $output;
+
+    protected $rules = [
+        'file' => 'required|mimes:xlsx|max:10240', // 10MB Max
+    ];
 
     public function render()
     {
@@ -23,34 +28,28 @@ class MyTaskComponent extends Component
     }
 
     public function mount(){
-
-
-    // $userId = auth()->id(); // Get the logged-in user's ID
-
-    // $this->result = DB::table('task_users')
-    //     ->join('works', 'task_users.works_id', '=', 'works.id')
-    //     ->join('users as assignee', 'task_users.user_id', '=', 'assignee.id')
-    //     ->join('users as assigner', 'works.created_by', '=', 'assigner.id')
-    //     ->select('works.id',
-    //         'works.task_name',
-    //         'works.description',
-    //         'works.start_date',
-    //         'works.due_date',
-    //         'works.status',
-    //         'assigner.name as assigner',
-    //         'assignee.name as assignee'
-    //     )
-    //     ->where('assignee.id', $userId) // Filter by the logged-in user's ID
-    //     ->get();
-
-
-    // // Define the possible statuses
-    // $this->statuses = ['incomplete', 'doing', 'completed'];
+        $this->import();
     }
 
-//     public function updateStatus($taskId, $newStatus)
-// {
-//     DB::table('works')->where('id', $taskId)->update(['status' => $newStatus]);
-// }
+    public function import()
+    {
+        $this->validate();
+
+        try {
+          $this->output =  Excel::import(new ExcelImport, $this->file->getRealPath());
+          dd($this->output);
+            session()->flash('message', 'Works imported successfully!');
+        } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
+            // Handle validation exceptions and provide feedback
+            $errors = $e->failures();
+            session()->flash('error', 'Some rows failed validation. Please check the file.');
+        } catch (\Exception $e) {
+            // Handle other exceptions
+            session()->flash('error', 'An error occurred during import.');
+        }
+
+    }
+
+   
 
 }

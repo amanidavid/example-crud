@@ -11,30 +11,34 @@
      
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-       
-        @livewireStyles
-        @include('layouts.header')
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
-       
+   
+        @include('layouts.head')
+        <!-- Scripts -->
+        {{-- @vite(['resources/css/app.css', 'resources/js/app.js']) --}}
+
+        @livewireStyles
+     
     </head>
 
     <body class="font-sans antialiased">
 
-        <div class="min-h-screen bg-gray-100">
-            @include('layouts.sidebar')
-            @include('layouts.appbar')
+        @include('layouts.left-sidebar')
        
-            <div>
-                   
-                @yield('content')    
-            </div>
-        </div>
+        <div class="all-content-wrapper">
 
-        @include('layouts.javascript')
-        
+        @include('layouts.navigationbar')
+           
+        @yield('content')    
+           
+        </div>
+        @include('layouts.footer')
+
+        @include('layouts.javascript2')
+
         @livewireScripts
+
+
     </body>
 </html>

@@ -1,73 +1,31 @@
-@extends("layouts.app")
-@section('content')
-@include('layouts.style')
-<div class="all-content-wrapper">
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
- 
-    <!-- Static Table Start -->
-    <div class="data-table-area mg-b-15">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="sparkline13-list">
-                        <div class="sparkline13-hd">
-                            <div class="main-sparkline13-hd">
-                                <h1>My <span class="table-project-n">Tasks</span> </h1>
-                            </div>
-                        </div>
-                        <div class="sparkline13-graph">
-                            <div class="datatable-dashv1-list custom-datatable-overright">
-                      
-                                <div >
-                                    <table  id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="false" data-show-pagination-switch="true" data-show-refresh="false" data-key-events="true" data-show-toggle="false" data-resizable="true" data-cookie="true"
-                                    data-cookie-id-table="saveId" data-show-export="false" data-click-to-select="false" data-toolbar="#toolbar">
-                                    <thead>
-                                        <tr >
-                                            {{-- <th data-field="state" data-checkbox="false"></th> --}}
-                                            <th data-field="id">No</th>
-                                            <th data-field="task_name">Task</th>
-                                            <th data-field="description">Description</th>
-                                            <th data-field="start_date">Start Date</th>
-                                            <th data-field="due_date">Due Date</th>
-                                            <th data-field="status">Status</th>
-                                            <th data-field="assignee">Assigned By</th>
-                                            {{-- <th data-field="">Action</th> --}}
-                                        </tr>
-                                    </thead>
-                                  
-                                     {{-- @livewire('my-task-component') --}}
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
-                                </table>
-                                
-                               
-                                </div>
-                                </div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-    <!-- Static Table End -->
-    <div class="footer-copyright-area">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <div class="footer-copy-right">
-                        <p>Copyright © 2024. All rights reserved.</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    <title>Hello, world!</title>
+    @livewireStyles
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+    @livewire('my-task-component')
 
 
+    <!-- Optional JavaScript; choose one of the two! -->
 
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 
-
-
-@endsection
+    <!-- Option 2: Separate Popper and Bootstrap JS -->
+    <!--
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
+    -->
+    @livewireScripts
+  </body>
+</html>

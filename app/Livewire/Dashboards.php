@@ -11,15 +11,18 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\MainEmail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Wavey\Sweetalert\Sweetalert;
+
+
 
 class Dashboards extends Component
 
 {
     public $task_name, $description,$start_date,$due_date,$assignees;
-    public $results,$statuses,$mytask,$task,$remove, $edit_task;
-    public  $output = [];
+    public $results,$statuses,$mytask,$task,$remove, $edit_task,  $task_update;
+    public $output = [];
 
-   protected $rules = [
+    protected $rules = [
 
        'task_name' =>'string|required|max:100|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/',
        'description' =>'string|required|max:250|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/|nullable',
@@ -36,12 +39,10 @@ class Dashboards extends Component
     public function mount(){
         //call fetchDataFxn
         $this->fetchDataFxn();
+ 
        $this->assignedTask();
-       $this->supervisorTask();
-    //    $this->update();
-      
-     
-
+    //    $this->supervisorTask();
+   
     }
     
     public function fetchDataFxn(){
@@ -59,7 +60,7 @@ class Dashboards extends Component
         //retrieve data for all task
         $this->task = task_user::join('works','task_users.works_id','works.id')
         ->join('users AS assignee','task_users.user_id','assignee.id')
-        ->select('works.task_name','works.description','works.start_date','works.due_date','works.status','Assignee.name AS assignee')
+        ->select('works.id','works.task_name','works.description','works.start_date','works.due_date','works.status','Assignee.name AS assignee')
         ->orderByRaw("CASE 
         WHEN works.status = 'incomplete' THEN 1
         WHEN works.status = 'doing' THEN 2
@@ -68,6 +69,9 @@ class Dashboards extends Component
         END")
         ->orderBy('works.due_date','asc')
         ->get();
+       
+       
+
     }
 
     public function saveDataFxn(){
@@ -117,11 +121,12 @@ class Dashboards extends Component
         $this->assignees ='';
 
         //call fetchDataFxn
-        $this->fetchDataFxn();
-        $this->redirect('/dashboard');
+        
+        // $this->redirect('/dashboard');
         
            
         session()->flash('message', "Task created and users assigned successfully.");
+        $this->fetchDataFxn();
 
 
     }
@@ -158,7 +163,7 @@ class Dashboards extends Component
     
         // Define the possible statuses
         $this->statuses = ['incomplete', 'doing', 'completed'];
-       
+        // $this->mount();
 
     }
 
@@ -166,73 +171,96 @@ class Dashboards extends Component
     {
         DB::table('works')->where('id', $taskId)->update(['status' => $newStatus]);
         $this->fetchDataFxn();
+        
+        // $this->redirect('/dashboard');
+
     }
 
-    public function supervisorTask(){
+    // public function supervisorTask(){
 
-        $userId =auth()->id();
-        // Task create by supervisor
-        $this->mytask=DB::table('task_users')
-        // ->join('works','task_users.works_id','works.id')
-        ->join('works', 'task_users.works_id', '=', 'works.id')
-        ->join('users AS assignee', 'task_users.user_id', '=', 'assignee.id')
-        ->join('users AS supervisor','works.created_by','supervisor.id')
-        ->where('supervisor.id',$userId)
-        ->select('works.id','works.task_name','works.description','works.start_date','works.due_date','works.status','assignee.name AS assignee')
-        ->orderByRaw("CASE 
-        WHEN works.status = 'incomplete' THEN 1
-        WHEN works.status = 'doing' THEN 2
-        WHEN works.status = 'complete' THEN 3
-        ELSE 4
-        END")
-        ->orderBy('works.due_date','asc') 
-        ->get(); 
+    //     $userId =auth()->id();
+    //     // Task create by supervisor
+    //     $this->mytask=DB::table('task_users')
+    //     // ->join('works','task_users.works_id','works.id')
+    //     ->join('works', 'task_users.works_id', '=', 'works.id')
+    //     ->join('users AS assignee', 'task_users.user_id', '=', 'assignee.id')
+    //     ->join('users AS supervisor','works.created_by','supervisor.id')
+    //     ->where('supervisor.id',$userId)
+    //     ->select('works.id','works.task_name','works.description','works.start_date','works.due_date','works.status','assignee.name AS assignee')
+    //     ->orderByRaw("CASE 
+    //     WHEN works.status = 'incomplete' THEN 1
+    //     WHEN works.status = 'doing' THEN 2
+    //     WHEN works.status = 'complete' THEN 3
+    //     ELSE 4
+    //     END")
+    //     ->orderBy('works.due_date','asc') 
+    //     ->get(); 
         
-        $this->fetchDataFxn();
-        
-    }
-
-    public function delete($id){
-
-     $this->remove= Work::find($id);
-     $this->remove->delete();
-    //  $this->fetchDataFxn();
-    $this->redirect('/dashboard');
-
-    session()->flash('sms', "Task deleted successfully.");
-
+    //     // $this->mount();
     
-
-    }
-
-    public function edit($task_id)
-    {
-        $this->edit_task = Work::find($task_id);
-
-    }
-
-    // public function update()
-    // {
-    //     // $this->validate();
-
-    //    // Create new task
-    //    $this->task = Work::create([
-    //     'task_name' => $this->task_name,
-    //     'description' => $this->description,
-    //     'start_date' => $this->start_date,
-    //     'due_date' => $this->due_date,
-    //     'status' => 'incomplete',
-    //     'created_by' => Auth::id(),
-    // ]);
-
-    //     // Sync the assignees (users) with the task
-    //     if (!empty($this->assignees)) {
-    //         $task->assignees()->attach($this->assignees);}
-
-    //     // Hide the modal and reset the form
-       
-    //     session()->flash('message', 'Task updated successfully!');
+        
     // }
 
+    public function deleted($id)
+    {
+        // dd($id); // Check if the ID is being passed correctly.
+    
+        $remove = Work::find($id);
+        
+        if ($remove) {
+            $remove->delete();
+            session()->flash('sms', "Task deleted successfully.");
+            $this->fetchDataFxn();
+        } else {
+            session()->flash('error', "Task not found.");
+        }
+    }
+
+    public function loadTask($ids)
+{
+    $task = Work::findOrFail($ids);
+
+    $this->ids= $task->id;
+    $this->task_name = $task->task_name;
+    $this->description = $task->description;
+    $this->start_date = $task->start_date;
+    $this->due_date = $task->due_date;
+    $this->assignees = $task->assignees->pluck('id')->toArray();
+}
+
+public function updateTask()
+{
+    $this->validate();
+
+    $task_update = Work::findOrFail($this->ids);
+    
+
+    $task_update->update([
+        'task_name' => $this->task_name,
+        'description' => $this->description,
+        'start_date' => $this->start_date,
+        'due_date' => $this->due_date,
+        'status' => 'incomplete',
+        'created_by' => Auth::id(),
+    ]);
+
+    dd($task_update);
+
+    
+       // Assign users to the task
+       if (!empty($this->assignees)) {
+        $task_update->assignees()->attach($this->assignees);
+       }
+    // Update assignees
+    // $task->assignees()->sync($this->assignees);
+   
+
+    session()->flash('message', 'Task updated successfully.');
+    
+    $this->resetInputFields();
+    $this->fetchDataFxn();
+
+}
+  
 
 }
