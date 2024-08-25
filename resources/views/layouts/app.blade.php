@@ -22,18 +22,19 @@
      
     </head>
 
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased" id="app">
 
         @include('layouts.left-sidebar')
        
         <div class="all-content-wrapper">
 
-        @include('layouts.navigationbar')
+            @include('layouts.navigationbar')
+            
+            @yield('content')    
            
-        @yield('content')    
-           
+            @include('layouts.footer')
         </div>
-        @include('layouts.footer')
+
 
         @include('layouts.javascript2')
 

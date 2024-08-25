@@ -21,6 +21,7 @@ class Dashboards extends Component
     public $task_name, $description,$start_date,$due_date,$assignees;
     public $results,$statuses,$mytask,$task,$remove, $edit_task,  $task_update;
     public $output = [];
+    public $userId;
 
     protected $rules = [
 
@@ -41,6 +42,7 @@ class Dashboards extends Component
         $this->fetchDataFxn();
  
        $this->assignedTask();
+       $this->userId = auth()->id();
     //    $this->supervisorTask();
    
     }

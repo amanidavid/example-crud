@@ -46,6 +46,12 @@
             ============================================ -->
         <link rel="stylesheet" href="css/metisMenu/metisMenu.min.css">
         <link rel="stylesheet" href="css/metisMenu/metisMenu-vertical.css">
+
+        
+    <!-- normalize CSS
+		============================================ -->
+    <link rel="stylesheet" href="css/data-table/bootstrap-table.css">
+    <link rel="stylesheet" href="css/data-table/bootstrap-editable.css">
         <!-- calendar CSS
             ============================================ -->
         <link rel="stylesheet" href="css/calendar/fullcalendar.min.css">
@@ -61,5 +67,4 @@
             ============================================ -->
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
         
-        <link rel="stylesheet" href="css/data-table/bootstrap-table.css">
        

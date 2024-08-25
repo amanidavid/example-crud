@@ -1,12 +1,10 @@
 @extends('layouts.app')
-@section('title','Task')
+    @section('title','Task')
 
 @section('content')
-
-
-
+    {{-- "@livewire('dashboards') --}}
+    @livewire('demo-component')
     
-@livewire('dashboards')
 @endsection
        
    
