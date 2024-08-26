@@ -5,11 +5,11 @@
             <div class="product-payment-inner-st">
                 <ul id="myTabedu1" class="tab-review-design">
                     {{-- @can('create task') --}}
-                    <li class="active"><a href="#description">Add Task Details</a></li>
+                    <li ><a href="#description">Add Task Details</a></li>
                     {{-- @endcan --}}
 
                    @can('view all tasks')
-                    <li><a href="#reviews"> All Tasks</a></li>
+                    <li ><a href="#reviews"> All Tasks</a></li>
                    @endcan 
                    
                     @can('view assigned task')
@@ -142,7 +142,6 @@
                                                     @can('delete task')
                                                     <button type="button" onclick="showModal()" class="btn btn-custon-four btn-danger">Delete</button>    
                                                     @endcan
-                                                    <button wire:click="toEditFxn({{ $tasks }})" class="btn btn-custon-four btn-info" type="button" >Edit </button>
                                                 </td>
                                             </tr>
                                              <!-- Delete Confirmation Modal -->
@@ -217,6 +216,16 @@
                     <div class="product-tab-list tab-pane fade" id="created">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                @if (session()->has('update-sms'))
+                                <div class="alert alert-success">
+                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    {{ session('update-sms') }}
+                                   
+            
+                                </div>
+                                @endif  
 
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                    
@@ -243,13 +252,63 @@
                                                 <td>{{ $task->due_date  }}</td>
                                                 <td>{{ $task->status  }}</td>
                                                 <td>{{ $task->assignee  }}</td>
-                                                {{-- <td> --}}
+                                                <td>
                                                   
-                                                {{-- <button wire:click="toEditFxn({{ $task }})" class="btn btn-custon-four btn-info" type="button" >Edit </button> --}}
+                                                 {{-- <button wire:click="toEditFxn({{ $task }})" class="btn btn-custon-four btn-info" type="button" >Edit </button> --}}
                                 
-                                                 
-                                                {{-- <button type="submit" wire:click="delete({{ $task->id }})" class="btn btn-custon-four btn-success"  wire:offline.class="disabled" >Confirm</button> --}}
-                                  {{-- </td> --}}
+                                                 <!-- Button to trigger modal -->
+                                                 @can('edit task')
+                                                <button type="button" class="btn btn-custon-four btn-success" wire:click="toEditFxn({{ $task->id }})">Edit</button>
+                                                @endcan
+
+
+                                                @if($isModalVisible)
+                                                 <!-- Modal -->
+                                                 <div  id="editModal" style="display:{{ $isModalVisible ? 'flex' : 'none' }}; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:1000;">
+                                                    <div style="background:white; padding:30px; border-radius:10px; width:400px; box-shadow: 0 5px 15px rgba(0,0,0,.5);">
+                                                        <h4 style="text-align:center; margin-bottom:20px;">Edit Task</h4>
+                                                        
+                                                        <form wire:submit.prevent="modify">
+                                                            <div class="form-group">
+                                                                <label for="input1">Title</label>
+                                                                <input type="text" class="form-control" wire:model="task_name" required placeholder="Title"/>
+                                                                @error('task_name') <span class="error">{{ $message }}</span> @enderror
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="title">Start Date</label>
+                                                                <input type="date" class="form-control" wire:model="start_date" required min="{{ \Illuminate\Support\Carbon::today()->toDateString() }}" />
+                                                                @error('start_date') <span class="error">{{ $message }}</span> @enderror
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="title">Due Date</label>
+                                                                <input type="date" class="form-control" wire:model="due_date" required min="{{ \Illuminate\Support\Carbon::today()->toDateString() }}" />
+                                                                @error('due_date') <span class="error">{{ $message }}</span> @enderror
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="title">Select Assignee</label>
+                                                                <select name="assignees[]" id="assignees" class="form-control" wire:model="assignees" multiple="multiple" style="width: 100%;" required>
+                                                                    @forelse($output as $user)
+                                                                        <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                                    @empty
+                                                                        <option disabled>No users available</option>
+                                                                    @endforelse
+                                                                </select>
+                                                                @error('assignees') <span class="error">{{ $message }}</span> @enderror
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <textarea class="form-control" wire:model="description" rows="4" placeholder="Enter description here"></textarea>
+                                                                @error('description') <span class="error">{{ $message }}</span> @enderror
+                                                            </div>
+                                                            <div style="text-align:center; margin-top:20px;">
+                                                                <button type="button" class="btn btn-secondary"  wire:click="closeModal">Cancel</button>
+                                                                <button type="submit" class="btn btn-primary">Update</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                @endif
+                                                
+                                                </td>
                                                 
                                             </tr>
                                         @endforeach
@@ -259,23 +318,6 @@
                             </div>
                         </div>
                     </div> 
-                    
-               
-           
-
-                      {{-- <div class="product-tab-list tab-pane fade" id="INFORMATION">
-                        <div class="row">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="review-content-section">
-                                    <div class="product-tab-list tab-pane fade" id="INFORMATION">
-                                        <div class="row">
-                                        hello
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>   --}}
-                 
                 </div>
             </div>
         </div>
@@ -297,6 +339,22 @@
         hideModal();
     }
 </script>
+
+{{-- <script>
+    function showModals() {
+        document.getElementById('editModal').style.display = 'flex';
+    }
+
+    function hideModals() {
+        document.getElementById('editModal').style.display = 'none';
+    }
+
+    
+    // Handle form submission through Livewire
+    document.addEventListener('livewire:submit', function(event) {
+        hideModal(); // Hide modal after form submission
+    });
+</script> --}}
 
 <script>
     document.getElementById('searchInput').addEventListener('keyup', function() {

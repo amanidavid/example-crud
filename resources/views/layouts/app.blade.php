@@ -18,6 +18,35 @@
                 max-width: 200px;
                 margin-left: auto;
             }
+
+             /* Basic styling for the modal */
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .btn-secondary {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        padding: 10px 20px;
+        border-radius: 5px;
+        color: white;
+    }
+
+    .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        color: white;
+    }
+
+    .btn-primary:hover, .btn-secondary:hover {
+        opacity: 0.9;
+    }
         </style>
 
    
@@ -37,7 +66,8 @@
 
             @include('layouts.navigationbar')
             
-            @yield('content')    
+            @yield('content')
+            <br>    
            
             @include('layouts.footer')
         </div>

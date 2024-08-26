@@ -22,8 +22,15 @@ class DemoComponent extends Component
     
     public $toEdit;
 
+    public $isModalVisible = false;
+
     public $output = [];
     public $userId;
+    public $editTaskId = null;  // Initialize with null
+    public $editTitle = '';
+    public $editDescription = '';
+    public $editStartDate = '';
+    public $editDuedate = '';
 
     protected $rules = [
         'task_name' =>'string|required|max:100|regex:/^([a-zA-Z]+)(\s[a-zA-Z]+)*$/',
@@ -41,8 +48,9 @@ class DemoComponent extends Component
     public function mount(){
         $this->userId = auth()->id();
         $this->fetchAllDatas();
+        $this->modify();
         // $this->supervisorTask();
-        // $this->assignedTask();
+        // $this->assignedTask();updatedTask
        
         // dd($this->task[1]);supervisorTask
     }
@@ -231,10 +239,59 @@ class DemoComponent extends Component
         // $this->redirect('/dashboard');
 
     }
-    public function toEditFxn($index){
+    public function toEditFxn($toEdit){
+        $task = Work::find($toEdit);
+        // dd($task);
+
+        if($task){
+            $this->toEdit = $task->id;
+            $this->task_name = $task->task_name;
+            $this->description = $task->description;  // Corrected
+            $this->start_date = $task->start_date;     // Corrected
+            $this->due_date  = $task->due_date;
+            $this->isModalVisible = true;
+        }
+       
         
-        $this->toEdit = $index;
+        // $this->toEdit = $index;
         // dd($this->toEdit['task_name']);
     }
+
+    public function closeModal()
+    {
+        $this->isModalVisible = true;
+    }
+
+    public function modify(){
+       try {
+             $task = Work::find($this->toEdit);
+
+            if (!$task) {
+                throw new \Exception('Task not found.');
+            }
+
+            $task->update([
+                'task_name' => $this->task_name,
+                'description' => $this->description,
+                'start_date' => $this->start_date,
+                'due_date' => $this->due_date,
+                'status' => 'incomplete',
+                'created_by' => Auth::id(),
+            ]);
+
+            
+
+            $this->isModalVisible = false;
+            $this->fetchAllDatas();
+             session()->flash('update-sms', "Task updated and users assigned successfully.");
+
+        
+       } catch (\Throwable $th) {
+        //throw $th;
+        session()->flash('error', 'Error: ' . $th->getMessage());
+       } 
+    }
+
+   
 
 }
