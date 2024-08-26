@@ -4,9 +4,9 @@
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
             <div class="product-payment-inner-st">
                 <ul id="myTabedu1" class="tab-review-design">
-                    @can('create task')
+                    {{-- @can('create task') --}}
                     <li class="active"><a href="#description">Add Task Details</a></li>
-                    @endcan
+                    {{-- @endcan --}}
 
                    @can('view all tasks')
                     <li><a href="#reviews"> All Tasks</a></li>
@@ -16,9 +16,9 @@
                     <li><a href="#INFORMATION">Assigned Task</a></li>       
                     @endcan
 
-                    {{-- @can('view created task') --}}
+                 
                     <li><a href="#created">Created By Me</a></li>      
-                    {{-- @endcan --}}
+                   
                   
                 </ul>
 
@@ -217,20 +217,10 @@
                     <div class="product-tab-list tab-pane fade" id="created">
                         <div class="row">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                               
-                                @if (session()->has('sms'))
-                                <div class="alert alert-success">
-                                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    {{ session('sms') }}
-                                   
-            
-                                </div>
-                                @endif
+
                                 <div class="d-flex justify-content-between align-items-center mb-3">
                                    
-                                    <input class="form-control search-box" id="searchInput" type="text" placeholder="Search...">
+                                    <input class="form-control search-box" id="searchInputs" type="text" placeholder="Search...">
                                 </div> <br>
                                 <table class="table table-bordered">
                                     <thead>
@@ -243,7 +233,28 @@
                                         <th>Assigned To</th>
                                         <th>Action</th>
                                     </thead>
-                                   @livewire('supervisor-component')
+                                    <tbody >
+                                        @foreach ($mytask as $index => $task)
+                                            <tr   wire:key ="{{ $task->id }}"  >
+                                                <td>{{$index + 1}}</td>
+                                                <td>{{$task->task_name}}</td>
+                                                <td>{{ $task->description  }}</td>
+                                                <td>{{ $task->start_date  }}</td>
+                                                <td>{{ $task->due_date  }}</td>
+                                                <td>{{ $task->status  }}</td>
+                                                <td>{{ $task->assignee  }}</td>
+                                                {{-- <td> --}}
+                                                  
+                                                {{-- <button wire:click="toEditFxn({{ $task }})" class="btn btn-custon-four btn-info" type="button" >Edit </button> --}}
+                                
+                                                 
+                                                {{-- <button type="submit" wire:click="delete({{ $task->id }})" class="btn btn-custon-four btn-success"  wire:offline.class="disabled" >Confirm</button> --}}
+                                  {{-- </td> --}}
+                                                
+                                            </tr>
+                                        @endforeach
+                                        
+                                    </tbody>
                                 </table>
                             </div>
                         </div>
@@ -285,4 +296,16 @@
         console.log('Action confirmed');
         hideModal();
     }
+</script>
+
+<script>
+    document.getElementById('searchInput').addEventListener('keyup', function() {
+        var searchText = this.value.toLowerCase();
+        var tableRows = document.querySelectorAll('tbody tr');
+
+        tableRows.forEach(function(row) {
+            var rowData = row.textContent.toLowerCase();
+            row.style.display = rowData.includes(searchText) ? '' : 'none';
+        });
+    });
 </script>

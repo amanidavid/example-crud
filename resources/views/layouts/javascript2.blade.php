@@ -90,7 +90,7 @@
             ============================================ -->
         {{-- <script src="js/tawk-chat.js"></script> --}}
         <script>
-            document.getElementById('searchInput').addEventListener('keyup', function() {
+            document.getElementById('searchInputs').addEventListener('keyup', function() {
                 var searchText = this.value.toLowerCase();
                 var tableRows = document.querySelectorAll('tbody tr');
         

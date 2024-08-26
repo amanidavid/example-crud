@@ -41,8 +41,10 @@ class DemoComponent extends Component
     public function mount(){
         $this->userId = auth()->id();
         $this->fetchAllDatas();
-        $this->assignedTask();
-        // dd($this->task[1]);
+        // $this->supervisorTask();
+        // $this->assignedTask();
+       
+        // dd($this->task[1]);supervisorTask
     }
 
     public function fetchAllDatas(){
@@ -64,7 +66,56 @@ class DemoComponent extends Component
             ->join('users As user_supervised','task_delegations.user_supervised','user_supervised.id')
             ->where('supervisor.id', $this->userId)
             ->select('user_supervised.id','user_supervised.name')
-        ->get();     
+        ->get(); 
+        
+        $userId =auth()->id();
+        // Task create by supervisor
+        $this->mytask=DB::table('task_users')
+        // ->join('works','task_users.works_id','works.id')
+        ->join('works', 'task_users.works_id', '=', 'works.id')
+        ->join('users AS assignee', 'task_users.user_id', '=', 'assignee.id')
+        ->join('users AS supervisor','works.created_by','supervisor.id')
+        ->where('supervisor.id',$userId)
+        ->select('works.id','works.task_name','works.description','works.start_date','works.due_date','works.status','assignee.name AS assignee')
+        ->orderByRaw("CASE 
+        WHEN works.status = 'incomplete' THEN 1
+        WHEN works.status = 'doing' THEN 2
+        WHEN works.status = 'complete' THEN 3
+        ELSE 4
+        END")
+        ->orderBy('works.due_date','asc') 
+        ->get();
+
+        //Task assigned to assignee
+        $this->results = DB::table('task_users')
+        ->join('works', 'task_users.works_id', '=', 'works.id')
+        ->join('users as assignee', 'task_users.user_id', '=', 'assignee.id')
+        ->join('users as assigner', 'works.created_by', '=', 'assigner.id')
+        ->select('works.id',
+            'works.task_name',
+            'works.description',
+            'works.start_date',
+            'works.due_date',
+            'works.status',
+            'assigner.name as assigner',
+            'assignee.name as assignee'
+        )
+        ->where('assignee.id', $userId)
+        ->orderByRaw("CASE 
+        WHEN works.status = 'incomplete' THEN 1
+        WHEN works.status = 'doing' THEN 2
+        WHEN works.status = 'complete' THEN 3
+        ELSE 4
+        END")
+        ->orderBy('works.due_date','asc') // Filter by the logged-in user's ID
+        ->get();
+
+        // dd($this->results);
+
+
+    // Define the possible statuses
+    $this->statuses = ['incomplete', 'doing', 'completed'];
+    // $this->mount();
     }
 
     
@@ -175,12 +226,11 @@ class DemoComponent extends Component
     public function updateStatus($taskId, $newStatus)
     {
         DB::table('works')->where('id', $taskId)->update(['status' => $newStatus]);
-        $this->fetchDataFxn();
+        $this->mount();
         
         // $this->redirect('/dashboard');
 
     }
-
     public function toEditFxn($index){
         
         $this->toEdit = $index;

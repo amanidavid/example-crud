@@ -12,7 +12,7 @@
                 <td>{{ $task->assignee  }}</td>
                 {{-- <td> --}}
                   
-                <button wire:click="toEditFxn({{ $task }})" class="btn btn-custon-four btn-info" type="button" >Edit </button>
+                {{-- <button wire:click="toEditFxn({{ $task }})" class="btn btn-custon-four btn-info" type="button" >Edit </button> --}}
 
                  
                 {{-- <button type="submit" wire:click="delete({{ $task->id }})" class="btn btn-custon-four btn-success"  wire:offline.class="disabled" >Confirm</button> --}}
