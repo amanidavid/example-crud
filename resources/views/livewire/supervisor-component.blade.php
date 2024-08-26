@@ -11,9 +11,10 @@
                 <td>{{ $task->status  }}</td>
                 <td>{{ $task->assignee  }}</td>
                 {{-- <td> --}}
-                {{-- <button  
-                    class="btn btn-custon-four btn-primary" wire:model="loadTask({{ $task->id }})" data-toggle="modal" data-target="#InformationproModalalert" >Edit
-                </button>  --}}
+                  
+                <button wire:click="toEditFxn({{ $task }})" class="btn btn-custon-four btn-info" type="button" >Edit </button>
+
+                 
                 {{-- <button type="submit" wire:click="delete({{ $task->id }})" class="btn btn-custon-four btn-success"  wire:offline.class="disabled" >Confirm</button> --}}
   {{-- </td> --}}
                 
