@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Livewire\MyTaskComponent;
+use App\Livewire\ShowTaskComponent;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +18,7 @@ use App\Livewire\MyTaskComponent;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 Route::middleware([
@@ -28,20 +30,22 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    Route::get('task', function () {
-        return view('task');
-    })->name('my-task');
+    // Route::get('task', function () {
+    //     return view('task');
+    // })->name('my-task');
 
-    Route::get('supervisor', function () {
-        return view('supervisor');
-    })->name('create-by-me');
+    // Route::get('supervisor', function () {
+    //     return view('supervisor');
+    // })->name('create-by-me');
 
     
     // Route::get('livewire/my-task-component', MyTaskComponent::class);
-    Route::get('import-excel', MyTaskComponent::class)->name('import-excel');
+    // Route::get('import-excel', MyTaskComponent::class)->name('import-excel');
 
 
 });
+
+// route::get('/livewire/show-task-component',ShowTaskComponent::class)->name('dashboard');
 
 
 

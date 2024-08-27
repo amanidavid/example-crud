@@ -7,9 +7,14 @@ use Livewire\Component;
 use Livewire\WithFileUploads;
 use Livewire\Attributes\Validate;
 use Maatwebsite\Excel\Facades\Excel;
+// use Excel;
 use App\Imports\ExcelImport;
+use Maatwebsite\Excel\Validators\ValidationException;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Concerns\Importable;
+use Illuminate\Support\Facades\Storage;
+// use App\Models\Excel;
 
 class MyTaskComponent extends Component
 
@@ -18,7 +23,8 @@ class MyTaskComponent extends Component
     public $file, $output;
 
     protected $rules = [
-        'file' => 'required|mimes:xlsx|max:10240', // 10MB Max
+        
+        'file' => 'required|file|mimes:xlsx,xls,csv|max:10240', // 10MB Max
     ];
 
     public function render()
@@ -27,18 +33,23 @@ class MyTaskComponent extends Component
         return view('livewire.my-task-component');
     }
 
-    public function mount(){
-        $this->import();
-    }
+  
 
     public function import()
     {
         $this->validate();
 
         try {
-          $this->output =  Excel::import(new ExcelImport, $this->file->getRealPath());
-          dd($this->output);
-            session()->flash('message', 'Works imported successfully!');
+            // dd($this->file->getRealPath());
+            // $importResult = Excel::import(new ExcelImport, $this->file->getRealPath());
+       // Store the file in the public disk
+       $filePath = $this->file->storeAs('public', 'import-users.xlsx');
+       $fullPath = Storage::path($filePath);
+
+       // Import data using the import method
+       Excel::import(new ExcelImport, $fullPath);
+       session()->flash('message', 'Works imported successfully!');
+           
         } catch (\Maatwebsite\Excel\Validators\ValidationException $e) {
             // Handle validation exceptions and provide feedback
             $errors = $e->failures();

@@ -16,9 +16,9 @@
                     <li><a href="#INFORMATION">Assigned Task</a></li>       
                     @endcan
 
-                 
+                    
                     <li><a href="#created">Created By Me</a></li>      
-                   
+                  
                   
                 </ul>
 
@@ -87,7 +87,9 @@
                                             <br>
                                             <div class="row">
                                                 <div class="col-lg-12">
+                                                    @can('create task')
                                                         <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+                                                    @endcan    
                                                 </div>
                                             </div>
                                         </form>
