@@ -259,9 +259,9 @@
                                                  {{-- <button wire:click="toEditFxn({{ $task }})" class="btn btn-custon-four btn-info" type="button" >Edit </button> --}}
                                 
                                                  <!-- Button to trigger modal -->
-                                                 @can('edit task')
+                                                 {{-- @can('edit task') --}}
                                                 <button type="button" class="btn btn-custon-four btn-success" wire:click="toEditFxn({{ $task->id }})">Edit</button>
-                                                @endcan
+                                                {{-- @endcan --}}
 
 
                                                 @if($isModalVisible)

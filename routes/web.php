@@ -30,9 +30,9 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
-    // Route::get('task', function () {
-    //     return view('task');
-    // })->name('my-task');
+    Route::get('task', function () {
+        return view('task');
+    })->name('my-task');
 
     // Route::get('supervisor', function () {
     //     return view('supervisor');
